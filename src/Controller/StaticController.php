@@ -1,19 +1,16 @@
 <?php
 
 namespace App\Controller;
-
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class StaticController extends AbstractController
 {
-    #[Route('/static', name: 'app_static')]
-    public function index(): JsonResponse
+    #[Route('/index', name: 'index')]
+    public function index(): Response
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/StaticController.php',
+        return $this->render('base/index.html.twig', [
         ]);
     }
 }
