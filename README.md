@@ -5,6 +5,4 @@ Mise en place du projet : (ne pas être en root)
   - se placeer à la racine du projet 
   - composer Install 
   - composer update 
-  - composer require symfony/maker-bundle --dev
-  - composer require doctrine/annotations
-  - composer require symfony/twig-bundle
+ 
