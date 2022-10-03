@@ -149,7 +149,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->projet;
     }
-
+    
     public function setProjet(?Projet $projet): self
     {
         $this->projet = $projet;

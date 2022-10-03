@@ -26,7 +26,7 @@ class EquipeController extends AbstractController
 
 
                 $equipe->setLibelle($nom);
-                $equipe->setProjet($projet);
+
 
 
                 $em = $this->getDoctrine()->getManager();
