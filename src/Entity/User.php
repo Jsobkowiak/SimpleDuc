@@ -32,18 +32,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Role::class)]
-    private Collection $rooles;
-
-    #[ORM\ManyToOne(inversedBy: 'salarie')]
-    private ?Equipe $equipe = null;
-
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Projet $projet = null;
+
+
     public function __construct()
     {
-        $this->rooles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -135,47 +132,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    /**
-     * @return Collection<int, Role>
-     */
-    public function getRooles(): Collection
-    {
-        return $this->rooles;
-    }
-
-    public function addRoole(Role $roole): self
-    {
-        if (!$this->rooles->contains($roole)) {
-            $this->rooles->add($roole);
-            $roole->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRoole(Role $roole): self
-    {
-        if ($this->rooles->removeElement($roole)) {
-            // set the owning side to null (unless already changed)
-            if ($roole->getUser() === $this) {
-                $roole->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getEquipe(): ?Equipe
-    {
-        return $this->equipe;
-    }
-
-    public function setEquipe(?Equipe $equipe): self
-    {
-        $this->equipe = $equipe;
-
-        return $this;
-    }
 
     public function isVerified(): bool
     {
@@ -188,4 +144,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getProjet(): ?Projet
+    {
+        return $this->projet;
+    }
+
+    public function setProjet(?Projet $projet): self
+    {
+        $this->projet = $projet;
+
+        return $this;
+    }
+
 }

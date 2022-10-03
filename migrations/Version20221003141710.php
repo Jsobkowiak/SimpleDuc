@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220926113300 extends AbstractMigration
+final class Version20221003141710 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,14 +20,14 @@ final class Version20220926113300 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE role (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, libelle VARCHAR(255) NOT NULL, INDEX IDX_57698A6AA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE role ADD CONSTRAINT FK_57698A6AA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
+        $this->addSql('ALTER TABLE developpeur ADD nom VARCHAR(255) NOT NULL, ADD prenom VARCHAR(255) NOT NULL');
+        $this->addSql('ALTER TABLE responsable ADD nom VARCHAR(255) NOT NULL, ADD prenom VARCHAR(255) NOT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE role DROP FOREIGN KEY FK_57698A6AA76ED395');
-        $this->addSql('DROP TABLE role');
+        $this->addSql('ALTER TABLE responsable DROP nom, DROP prenom');
+        $this->addSql('ALTER TABLE developpeur DROP nom, DROP prenom');
     }
 }
