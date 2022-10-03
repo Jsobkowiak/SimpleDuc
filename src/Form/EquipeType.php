@@ -15,13 +15,13 @@ class EquipeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('libelle', TextType::class, ['attr' => ['class'=> 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'], 'label_attr' => ['class'=> 'fw-bold']])
+        ->add('libelle', TextType::class, ['attr' => ['class'=> ' shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'], 'label_attr' => ['class'=> 'fw-bold']])
         ->add('Projet', EntityType::class, [
             'class' => Projet::class,
             'choice_label' => 'Libelle',
             'attr' => ['class'=> 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'], 'label_attr' => ['class'=> 'fw-bold text-dark']
             ])
-        ->add('ajouter', SubmitType::class, ["label" => "Ajouter une Equipe",'attr' => ['class'=> 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'], ])
+        ->add('ajouter', SubmitType::class, ["label" => "Ajouter une Equipe",'attr' => ['class'=> ' mt-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'], ])
         ;
     }
 

@@ -3,9 +3,16 @@
 {% block title %}Hello EquipeController!{% endblock %}
 
 {% block body %}
-<div class="w-full max-w-xs">
-    <div class="mb-4">
-        {{form(form)}}
+<section class="bg-gray-50 dark:bg-gray-900">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <h1 class="text-2xl mb-4">Ajouter une Equipe</h1>
+        <div class="w-full max-w-xs">
+
+            <div class="mb-4">
+
+                {{form(form)}}
+            </div>
+        </div>
     </div>
-</div>
+</section>
 {% endblock %}

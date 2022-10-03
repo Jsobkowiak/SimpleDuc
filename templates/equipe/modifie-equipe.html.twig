@@ -2,10 +2,14 @@
 {% block title %}Hello AdminController!{% endblock %}
 
 {% block body %}
-
-{{ form_start(form) }}
-{{ form_row(form.libelle) }}
-{{ form_row(form.Projet) }}
-{{ form_row(form.ajouter, { 'label': 'Modifier' }) }}
-{{ form_end(form) }}
+<section class="bg-gray-50 dark:bg-gray-900">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <h1 class="text-2xl">Modifier l'Equipe</h1>
+        {{ form_start(form) }}
+        {{ form_row(form.libelle) }}
+        {{ form_row(form.Projet) }}
+        {{ form_row(form.ajouter, { 'label': 'Modifier' }) }}
+        {{ form_end(form) }}
+    </div>
+</section>
 {% endblock %}
