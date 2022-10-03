@@ -18,15 +18,19 @@ class Equipe
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
-    #[ORM\ManyToOne(inversedBy: 'equipe')]
-    private ?Projet $projet = null;
+    #[ORM\ManyToMany(targetEntity: Projet::class, inversedBy: 'equipes')]
+    private Collection $projet;
 
-    #[ORM\OneToMany(mappedBy: 'equipe', targetEntity: User::class)]
-    private Collection $salarie;
+    #[ORM\ManyToMany(targetEntity: Developpeur::class, mappedBy: 'Equipe')]
+    private Collection $developpeurs;
+
+    #[ORM\ManyToOne(inversedBy: 'equipes')]
+    private ?Salarié $salarié = null;
 
     public function __construct()
     {
-        $this->salarie = new ArrayCollection();
+        $this->projet = new ArrayCollection();
+        $this->developpeurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -46,44 +50,65 @@ class Equipe
         return $this;
     }
 
-    public function getProjet(): ?Projet
+    /**
+     * @return Collection<int, Projet>
+     */
+    public function getProjet(): Collection
     {
         return $this->projet;
     }
 
-    public function setProjet(?Projet $projet): self
+    public function addProjet(Projet $projet): self
     {
-        $this->projet = $projet;
+        if (!$this->projet->contains($projet)) {
+            $this->projet->add($projet);
+        }
+
+        return $this;
+    }
+
+    public function removeProjet(Projet $projet): self
+    {
+        $this->projet->removeElement($projet);
 
         return $this;
     }
 
     /**
-     * @return Collection<int, User>
+     * @return Collection<int, Developpeur>
      */
-    public function getSalarie(): Collection
+    public function getDeveloppeurs(): Collection
     {
-        return $this->salarie;
+        return $this->developpeurs;
     }
 
-    public function addSalarie(User $salarie): self
+    public function addDeveloppeur(Developpeur $developpeur): self
     {
-        if (!$this->salarie->contains($salarie)) {
-            $this->salarie->add($salarie);
-            $salarie->setEquipe($this);
+        if (!$this->developpeurs->contains($developpeur)) {
+            $this->developpeurs->add($developpeur);
+            $developpeur->addEquipe($this);
         }
 
         return $this;
     }
 
-    public function removeSalarie(User $salarie): self
+    public function removeDeveloppeur(Developpeur $developpeur): self
     {
-        if ($this->salarie->removeElement($salarie)) {
-            // set the owning side to null (unless already changed)
-            if ($salarie->getEquipe() === $this) {
-                $salarie->setEquipe(null);
-            }
+        if ($this->developpeurs->removeElement($developpeur)) {
+            $developpeur->removeEquipe($this);
         }
+
+        return $this;
+    }
+
+    public function getSalarié(): ?Salarié
+    {
+        return $this->salarié;
+    }
+
+    public function setSalarié(?Salarié $salarié): self
+    {
+        $this->salarié = $salarié;
 
         return $this;
     }

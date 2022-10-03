@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Role;
+use App\Entity\Responsable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Role>
+ * @extends ServiceEntityRepository<Responsable>
  *
- * @method Role|null find($id, $lockMode = null, $lockVersion = null)
- * @method Role|null findOneBy(array $criteria, array $orderBy = null)
- * @method Role[]    findAll()
- * @method Role[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Responsable|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Responsable|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Responsable[]    findAll()
+ * @method Responsable[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class RoleRepository extends ServiceEntityRepository
+class ResponsableRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Role::class);
+        parent::__construct($registry, Responsable::class);
     }
 
-    public function save(Role $entity, bool $flush = false): void
+    public function save(Responsable $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class RoleRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Role $entity, bool $flush = false): void
+    public function remove(Responsable $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class RoleRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Role[] Returns an array of Role objects
+//     * @return Responsable[] Returns an array of Responsable objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class RoleRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Role
+//    public function findOneBySomeField($value): ?Responsable
 //    {
 //        return $this->createQueryBuilder('r')
 //            ->andWhere('r.exampleField = :val')
