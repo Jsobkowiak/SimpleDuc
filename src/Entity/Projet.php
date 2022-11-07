@@ -40,6 +40,9 @@ class Projet
     #[ORM\OneToMany(mappedBy: 'projet', targetEntity: Responsable::class)]
     private Collection $responsables;
 
+    #[ORM\Column(length: 255)]
+    private ?string $libelle = null;
+
     public function __construct()
     {
         $this->propriétaire = new ArrayCollection();
@@ -214,6 +217,18 @@ class Projet
                 $responsable->setProjet(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLibelle(): ?string
+    {
+        return $this->libelle;
+    }
+
+    public function setLibelle(string $libelle): self
+    {
+        $this->libelle = $libelle;
 
         return $this;
     }

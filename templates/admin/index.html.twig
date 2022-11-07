@@ -2,46 +2,164 @@
 
 {% block title %}{{parent()}} Administration{% endblock %}
 
-
 {% block body %}
-<div class="overflow-x-auto relative">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="py-3 px-6">
-                    ID
-                </th>
-                <th scope="col" class="py-3 px-6">
-                    Nom
-                </th>
-                <th scope="col" class="py-3 px-6">
-                    Gestion
-                </th>
-            </tr>
-        </thead>
-        <tbody> {% for equipe in equipe %}
+
+<script type="text/javascript">
+    function changeAtiveTab(event, tabID) {
+        let element = event.target;
+        while (element.nodeName !== "A") {
+            element = element.parentNode;
+        }
+        ulElement = element.parentNode.parentNode;
+        aElements = ulElement.querySelectorAll("li > a");
+        tabContents = document.getElementById("tabs-id").querySelectorAll(".tab-content > div");
+        for (let i = 0; i < aElements.length; i++) {
+            aElements[i].classList.remove("text-white");
+            aElements[i].classList.remove("bg-stone-600");
+            aElements[i].classList.add("text-stone-600");
+            aElements[i].classList.add("bg-white");
+            tabContents[i].classList.add("hidden");
+            tabContents[i].classList.remove("block");
+        }
+        element.classList.remove("text-stone-600");
+        element.classList.remove("bg-white");
+        element.classList.add("text-white");
+        element.classList.add("bg-stone-600");
+        document.getElementById(tabID).classList.remove("hidden");
+        document.getElementById(tabID).classList.add("block");
+    }
+</script>
+
+<div class="flex flex-wrap" id="tabs-id">
+    <div class="w-full">
+        <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
+            <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-stone-600" onclick="changeAtiveTab(event,'tab-profile')">
+                    Equipe
+                </a>
+            </li>
+            <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-stone-600 bg-white" onclick="changeAtiveTab(event,'tab-settings')">
+                    Projet
+                </a>
+            </li>
+            <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-stone-600 bg-white" onclick="changeAtiveTab(event,'tab-options')">
+                    Prochain Nom
+                </a>
+            </li>
+        </ul>
+
+        <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+            <div class="px-4 py-5 flex-auto">
 
 
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <div class="tab-content tab-space">
 
-                <td class="py-4 px-6">
-                    {{ equipe.id | capitalize }}
-                </td>
+                    <div class="block" id="tab-profile">
 
-                <td class="py-4 px-6">
-                    {{ equipe.libelle | capitalize }}
-                </td>
+                        <h1 class="text-center text-2xl">Liste des Equipes</h1>
+                        <div class="overflow-x-auto relative">
+                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" class="py-3 px-6">
+                                            ID
+                                        </th>
+                                        <th scope="col" class="py-3 px-6">
+                                            Nom
+                                        </th>
+                                        <th scope="col" class="py-3 px-6">
+                                            Gestion
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody> {% for equipe in equipe %}
 
 
-                <td class="py-4 px-6">
-                    <a href="{{path('modifie-equipe', {'id':equipe.id})}}"><button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Modifier</button></a><a href="{{path('supprimer-equipe', {'id':equipe.id})}}"><button type="button" data-modal-toggle="popup-modal" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Supprimer</button></a>
-                </td>
-            </tr>
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                                        <td class="py-4 px-6">
+                                            {{ equipe.id | capitalize }}
+                                        </td>
+
+                                        <td class="py-4 px-6">
+                                            {{ equipe.libelle | capitalize }}
+                                        </td>
 
 
-            {% endfor %}
-        </tbody>
-    </table>
+                                        <td class="py-4 px-6">
+                                            <a href="{{path('modifie-equipe', {'id':equipe.id})}}"><button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Modifier</button></a><a href="{{path('supprimer-equipe', {'id':equipe.id})}}"><button type="button" data-modal-toggle="popup-modal" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Supprimer</button></a>
+                                        </td>
+                                    </tr>
+
+
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                    <div class="hidden" id="tab-settings">
+
+                        <h1 class="text-center text-2xl">Liste des Projets</h1>
+                        <div class="overflow-x-auto relative">
+                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" class="py-3 px-6">
+                                            ID
+                                        </th>
+                                        <th scope="col" class="py-3 px-6">
+                                            Nom
+                                        </th>
+                                        <th scope="col" class="py-3 px-6">
+                                            Descriptions
+                                        </th>
+                                        <th scope="col" class="py-3 px-6">
+                                            Gestion
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody> {% for projets in projet %}
+
+
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                                        <td class="py-4 px-6">
+                                            {{ projets.id | capitalize }}
+                                        </td>
+
+                                        <td class="py-4 px-6">
+                                            {{ projets.libelle | capitalize }}
+                                        </td>
+
+                                        <td class="py-4 px-6">
+                                            {{ projets.description  | capitalize }}
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <a href=""><button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Modifier</button></a><a href=""><button type="button" data-modal-toggle="popup-modal" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">Supprimer</button></a>
+                                        </td>
+                                    </tr>
+
+
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                    </div>
+                    <div class="hidden" id="tab-options">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
 
 {% endblock %}
